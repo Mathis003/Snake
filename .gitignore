@@ -1,3 +1,5 @@
-__pycache__
-BestScore.txt
-./BestScore.txt
+# Fichiers texte
+*.txt
+
+# Dossier de cache Python
+__pycache__/
