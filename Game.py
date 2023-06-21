@@ -11,13 +11,12 @@ class Game:
         self.clock = pygame.time.Clock()
         self.randomFoodOnce = True
         self.runningGame = True
-        self.resetGameVariable = False
 
     def resetGame(self):
         self.score.addBestScore()
-        self.screen.fill(BLACK)  # Fill the screen with black color
+        self.screen.fill(BLACK)
         self.snake.resetSnake()
-        self.apple.resetApple()
+        self.apple.resetApple_pos()
         pygame.display.update()
 
     def Events(self):
@@ -29,39 +28,39 @@ class Game:
 
             # Deal with the keyboard and the snake's direction
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT and self.snake.head_pos[1] not in [HEIGHT, - SQUARE] and \
-                        self.snake.dico_direction[self.snake.head_pos] != "LEFT":
+                if event.key == pygame.K_RIGHT and self.snake.dico_direction[self.snake.head_pos] != "LEFT" and \
+                        self.snake.head_pos[1] not in [HEIGHT, - SQUARE]:
                     self.snake.direction_play = "RIGHT"
-                    self.snake.dico_direction[self.snake.head_pos] = "RIGHT"
-                elif event.key == pygame.K_LEFT and self.snake.head_pos[1] not in [HEIGHT, - SQUARE] and \
-                        self.snake.dico_direction[self.snake.head_pos] != "RIGHT":
+                    self.snake.updateDicoDirection()
+                elif event.key == pygame.K_LEFT and self.snake.dico_direction[self.snake.head_pos] != "RIGHT" and \
+                        self.snake.head_pos[1] not in [HEIGHT, - SQUARE]:
                     self.snake.direction_play = "LEFT"
-                    self.snake.dico_direction[self.snake.head_pos] = "LEFT"
-                elif event.key == pygame.K_UP and self.snake.head_pos[0] not in [WIDTH, - SQUARE] and \
-                        self.snake.dico_direction[self.snake.head_pos] != "DOWN":
+                    self.snake.updateDicoDirection()
+                elif event.key == pygame.K_UP and self.snake.dico_direction[self.snake.head_pos] != "DOWN" and \
+                        self.snake.head_pos[0] not in [WIDTH, - SQUARE]:
                     self.snake.direction_play = "UP"
-                    self.snake.dico_direction[self.snake.head_pos] = "UP"
-                elif event.key == pygame.K_DOWN and self.snake.head_pos[0] not in [WIDTH, - SQUARE] and \
-                        self.snake.dico_direction[self.snake.head_pos] != "UP":
+                    self.snake.updateDicoDirection()
+                elif event.key == pygame.K_DOWN and self.snake.dico_direction[self.snake.head_pos] != "UP" and \
+                        self.snake.head_pos[0] not in [WIDTH, - SQUARE]:
                     self.snake.direction_play = "DOWN"
-                    self.snake.dico_direction[self.snake.head_pos] = "DOWN"
+                    self.snake.updateDicoDirection()
 
     def run(self):
-        while self.runningGame:
 
+        self.snake.resetSnake()
+
+        while self.runningGame:
             self.clock.tick(self.FPS)
 
-            # Events
             self.Events()
 
             # Snake movement
             self.snake.moveBody()
-            if self.snake.checkCollision():
-                self.resetGame()
-                self.resetGameVariable = True
 
-            if not self.resetGameVariable:
+            if not self.snake.checkCollision():
+
                 self.snake.TeleportSnake()
+
                 # Deal with the apple spawn and the 'eaten' mod
                 if self.randomFoodOnce:
                     random_food_pos = self.apple.posRandomFood()
@@ -72,10 +71,10 @@ class Game:
                     self.randomFoodOnce = True
 
                 # Update screen
-                self.screen.fill(BLACK)  # Fill the screen with black color
+                self.screen.fill(BLACK)
                 self.score.displayScore()
                 self.apple.spawnFood()
                 self.snake.drawSnake()
                 pygame.display.update()
-
-            self.resetGameVariable = False
+            else:
+                self.resetGame()

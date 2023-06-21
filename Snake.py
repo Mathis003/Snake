@@ -2,16 +2,20 @@ from Configs import *
 
 class Snake:
 
-    def __init__(self, screen, size, head_pos, body_pos, direction_play):
+    def __init__(self, screen, size):
         self.screen = screen
         self.size = size
-        self.head_pos = head_pos
-        self.body_pos = body_pos
-        self.direction_play = direction_play # Direction of the head snake
-        self.dico_direction = {head_pos: "RIGHT"}  # Dictionary with key : position of a square and value : direction of the snake at this position
-        self.dico_rect = {head_pos : pygame.Rect(head_pos[0] + 1, head_pos[1] + 1, size, size)} # Dictionary with key : position of a square and value : rectangle of the square
+        self.length = 1 # The head doesn't count
+
+        # Update directly by 'resetSnake()'
+        self.head_pos = None
+        self.body_pos = None
+        self.direction_play = None # Direction of the head snake
+        self.dico_direction = None # Dictionary with key : position of a square and value : direction of the snake at this position
+        self.dico_rect = None # Dictionary with key : position of a square and value : rectangle of the square
 
     def resetSnake(self):
+        self.length = 1
         self.head_pos = (0, 0)
         self.body_pos = [(0, 0)]
         self.direction_play = "RIGHT"
@@ -31,7 +35,7 @@ class Snake:
         return tuple(pos)
 
     def moveBody(self):
-        for i in range(len(self.body_pos)):
+        for i in range(self.length):
             if i == 0:
                 self.head_pos = self.moveSquare(self.body_pos[0], self.dico_direction[self.body_pos[0]])
                 self.body_pos[0] = self.head_pos
@@ -43,15 +47,14 @@ class Snake:
 
     def addBody(self, new_body_pos):
         self.body_pos.append(new_body_pos)
+        self.length += 1
         self.dico_direction[new_body_pos] = self.dico_direction[self.body_pos[-2]]
         self.dico_rect[new_body_pos] = pygame.Rect(new_body_pos[0] + 1, new_body_pos[1] + 1, self.size, self.size)
 
     def checkCollision(self):
-        if len(self.body_pos) != 1:
-            for i in range(1, len(self.body_pos)):
+        if self.length >= 5:
+            for i in range(1, self.length):
                 if self.dico_rect[self.head_pos].colliderect(self.dico_rect[self.body_pos[i]]):
-                    print(self.body_pos)
-                    print('ok')
                     return True
         return False
 
@@ -103,8 +106,8 @@ class Snake:
         return pos
 
     def TeleportSnake(self):
-        if len(self.body_pos) != 1:
-            for i in range(len(self.body_pos)):
+        if self.length != 1:
+            for i in range(self.length):
                 direction_partSnake = self.dico_direction[self.body_pos[i]]
                 self.body_pos[i] = self.teleportation(self.body_pos[i], direction_partSnake)
                 if i == 0:

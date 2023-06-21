@@ -1,15 +1,16 @@
 from Configs import *
+import random
 
 class Apple:
 
-    def __init__(self, screen, snake, size, position, color):
+    def __init__(self, screen, snake, size, color):
         self.screen = screen
         self.snake = snake
         self.size = size
-        self.position = position
+        self.position = None
         self.color = color
 
-    def resetApple(self):
+    def resetApple_pos(self):
         self.position = self.posRandomFood()
 
     def posRandomFood(self):
@@ -21,9 +22,7 @@ class Apple:
                 return pos
 
     def checkAppleOnSnake(self, pos):
-        if pos in self.snake.body_pos:
-            return True
-        return False
+        return (pos in self.snake.body_pos)
 
     def spawnFood(self):
-        pygame.draw.rect(self.screen, RED, [self.position[0] + 1, self.position[1] + 1, self.size, self.size])
+        pygame.draw.rect(self.screen, self.color, [self.position[0] + 1, self.position[1] + 1, self.size, self.size])
