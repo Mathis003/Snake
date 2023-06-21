@@ -1,5 +1,5 @@
-# Fichiers texte
-*.txt
+# Text file (historic)
+BestScore.txt
 
-# Dossier de cache Python
+# Python's folder
 __pycache__/
