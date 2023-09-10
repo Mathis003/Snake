@@ -2,7 +2,8 @@
 
 ## Description
 
-This project is a simple and fun implementation of the Snake game in Python. The game was developed using the Pygame library, making it an excellent example for beginners in game programming.
+This project is a simple and fun implementation of the Snake game in Python.
+The game was developed using the Pygame library, making it an excellent example for beginners in game programming.
 
 ## Author
 
@@ -24,7 +25,7 @@ git clone https://github.com/Mathis003/Snake-Game.git
 
 ## Usage
 
-To start the Snake game, simply run the snake.py file:
+To start the Snake game, simply run the main.py file:
 
 ```bash
 python main.py
