@@ -1,7 +1,7 @@
-from Game import *
-from Snake import Snake
-from Apple import Apple
-from Score import Score
+from src.Game import *
+from src.Snake import Snake
+from src.Apple import Apple
+from src.Score import Score
 
 pygame.font.init()
 pygame.init()

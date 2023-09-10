@@ -1,4 +1,4 @@
-from Configs import *
+from src.Configs import *
 import random
 
 class Apple:
