@@ -1,23 +1,39 @@
-<p align="center">
-    <img src="image/Snake_Example.png" width="800"/>
-</p>
+# Snake Game in Python
 
 ## Description
 
-`Snake` Game with Pygame
+This project is a simple and fun implementation of the Snake game in Python. The game was developed using the Pygame library, making it an excellent example for beginners in game programming.
 
 ## Author
 
 Mathis Delsart
 
-## Dependencies
+## Installation
 
-`Pygame`
+Before you can play the Snake game, you need to install Pygame using pip:
 
-## Running the app
+```bash
+pip install pygame
+```
 
-`python3 ./main.py`
+Once Pygame is installed, you can clone this repository:
 
-## Problems
+```bash
+git clone https://github.com/Mathis003/Snake-Game.git
+```
 
-`Bugs`
+## Usage
+
+To start the Snake game, simply run the snake.py file:
+
+```bash
+python main.py
+```
+
+To control the snake, use the arrow keys.
+
+## Screenshots
+
+<p align="center">
+    <img src="image/Snake_Example.png" width="800"/>
+</p>
