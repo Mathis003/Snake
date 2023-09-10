@@ -23,6 +23,7 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.runningGame = False
+                self.score.addBestScore()
                 pygame.quit()
                 quit()
 
@@ -72,9 +73,9 @@ class Game:
 
                 # Update screen
                 self.screen.fill(BLACK)
-                self.score.displayScore()
                 self.apple.spawnFood()
                 self.snake.drawSnake()
+                self.score.displayScore()
                 pygame.display.update()
             else:
                 self.resetGame()
