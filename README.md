@@ -9,7 +9,7 @@ Enjoy the game and happy coding!
 
 ## Author
 
-Mathis Delsart
+- **Author:** Mathis Delsart
 
 ## Installation
 
